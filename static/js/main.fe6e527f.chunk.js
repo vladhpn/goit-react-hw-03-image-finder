@@ -1,2 +1,0 @@
-(this["webpackJsonpgoit-react-hw-03-image-finder"]=this["webpackJsonpgoit-react-hw-03-image-finder"]||[]).push([[0],{10:function(e,t,n){"use strict";n.r(t);var r=n(1),c=n.n(r),i=n(3),o=n.n(i),a=(n(8),n(0));var s=function(){return Object(a.jsx)("h1",{children:"H1 hello"})};o.a.render(Object(a.jsx)(c.a.StrictMode,{children:Object(a.jsx)(s,{})}),document.getElementById("root"))}},[[10,1,2]]]);
-//# sourceMappingURL=main.fe6e527f.chunk.js.map
