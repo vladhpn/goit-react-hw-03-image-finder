@@ -1,6 +1,8 @@
 import { Component } from 'react';
-import Searchbar from './components/Searchbar/Searchbar';
-import Modal from './components/Modal/Modal';
+import Searchbar from './components/Searchbar';
+import Modal from './components/Modal';
+import ImageGallery from './components/ImageGallery';
+import Button from './components/Button';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
 import 'modern-normalize/modern-normalize.css';
@@ -58,23 +60,23 @@ class App extends Component {
     return (
       <>
         {showModal && <Modal onClose={this.toggleModal} />}
+
         <Searchbar onSubmit={this.onChangeQuery} />
 
         {isLoading && (
           <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
         )}
-        <ul>
+
+        <ImageGallery hits={hits} onClick={this.toggleModal} />
+
+        {/* <ul>
           {hits.map(({ id, webformatURL, type }) => (
             <li key={id} onClick={this.toggleModal}>
               <img src={webformatURL} alt={type} />
             </li>
           ))}
-        </ul>
-        {hits.length > 0 && (
-          <button type="button" onClick={this.fetchHits}>
-            Load more
-          </button>
-        )}
+        </ul> */}
+        {hits.length > 0 && <Button onClick={this.fetchHits} />}
       </>
     );
   }

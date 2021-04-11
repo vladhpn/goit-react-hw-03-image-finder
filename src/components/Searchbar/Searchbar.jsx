@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import styles from './styles.module.scss'
 
 
 
@@ -28,18 +29,18 @@ class Searchbar extends Component{
 
 
     render() {
-        return <header className="Searchbar">
-        <form onSubmit={this.handleSubmit} className="SearchForm">
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
+        return <header className={styles.Searchbar}>
+        <form onSubmit={this.handleSubmit} className={styles.SearchForm}>
+          <button type="submit" className={styles.SearchButton}>
+          <span className={styles.SearchFormLabel}>Search</span>
           </button>
       
           <input
           value ={this.state.query} onChange={this.handleChange}
-            className="SearchForm-input"
+            className={styles.SearchFormInput}
             type="text"
-            // autocomplete="off"
-            // autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
           />
         </form>
