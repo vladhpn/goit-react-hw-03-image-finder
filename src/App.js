@@ -4,18 +4,16 @@ import Modal from './components/Modal';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
 import axios from 'axios';
-import Loader from 'react-loader-spinner';
+import Spinner from './components/Spinner';
 import 'modern-normalize/modern-normalize.css';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
-// axios.defaults.headers.common['Authorization'] =
-//   'Bearer 20305682-bc6c61caedc31d9f439895335';
 
 class App extends Component {
   state = {
     hits: [],
     currentPage: 1,
     searchQuery: '',
+    largeImageURL: '',
+    alt: '',
     showModal: false,
     isLoading: false,
   };
@@ -45,7 +43,13 @@ class App extends Component {
           currentPage: prevState.currentPage + 1,
         }));
       })
+      .then(this.handleScroll)
       .finally(() => this.setState({ isLoading: false }));
+  };
+
+  onOpenModal = e => {
+    this.setState({ largeImageURL: e.target.dataset.source });
+    this.toggleModal();
   };
 
   toggleModal = () => {
@@ -54,28 +58,32 @@ class App extends Component {
     }));
   };
 
+  handleScroll = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
   render() {
-    const { hits, showModal, isLoading } = this.state;
+    const { hits, showModal, isLoading, largeImageURL, alt } = this.state;
 
     return (
       <>
-        {showModal && <Modal onClose={this.toggleModal} />}
+        {showModal && (
+          <Modal
+            onClose={this.toggleModal}
+            largeImageURL={largeImageURL}
+            alt={alt}
+          />
+        )}
 
         <Searchbar onSubmit={this.onChangeQuery} />
 
-        {isLoading && (
-          <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
-        )}
+        {isLoading && <Spinner />}
 
-        <ImageGallery hits={hits} onClick={this.toggleModal} />
+        <ImageGallery hits={hits} onOpenModal={this.onOpenModal} />
 
-        {/* <ul>
-          {hits.map(({ id, webformatURL, type }) => (
-            <li key={id} onClick={this.toggleModal}>
-              <img src={webformatURL} alt={type} />
-            </li>
-          ))}
-        </ul> */}
         {hits.length > 0 && <Button onClick={this.fetchHits} />}
       </>
     );

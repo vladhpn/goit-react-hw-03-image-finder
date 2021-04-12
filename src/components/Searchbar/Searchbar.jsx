@@ -2,12 +2,6 @@ import {Component} from 'react';
 import styles from './styles.module.scss'
 
 
-
-// 20305682-bc6c61caedc31d9f439895335
-
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-
-
 class Searchbar extends Component{
 
     state = {

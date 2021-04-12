@@ -1,5 +1,9 @@
 import {Component} from 'react';
+import {createPortal} from 'react-dom'
 import styles from './styles.module.scss'
+
+
+const modalRoot = document.getElementById("modal-root");
 
 class Modal extends Component {
 
@@ -17,12 +21,20 @@ class Modal extends Component {
         }
     }
 
+    handleOverlayClick = event => {
+        if(event.currentTarget === event.target){
+            this.props.onClose();
+        }
+    }
+
     render(){
-        return <div className={styles.Overlay}>
-        <div className={styles.Modal}>
-          <img src="" alt="" />
-        </div>
-      </div>
+        // const { largeImageURL } = this.props;
+
+        return createPortal(<div className={styles.Overlay} onClick={this.handleOverlayClick}>
+            <div className={styles.Modal}> {this.props.children}
+              <img src={this.props.largeImageURL} alt={this.props.alt} />
+            </div>
+          </div>, modalRoot) 
     }
 }
 
