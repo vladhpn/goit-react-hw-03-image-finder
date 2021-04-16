@@ -43,7 +43,6 @@ class App extends Component {
           currentPage: prevState.currentPage + 1,
         }));
       })
-      .then(this.handleScroll)
       .finally(() => this.setState({ isLoading: false }));
   };
 
@@ -58,11 +57,18 @@ class App extends Component {
     }));
   };
 
-  handleScroll = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
+  onLoadMore = () => {
+    this.fetchHits();
+    this.scrollPage();
+  };
+
+  scrollPage = () => {
+    setTimeout(() => {
+      window.scrollBy({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 500);
   };
 
   render() {
@@ -84,7 +90,7 @@ class App extends Component {
 
         <ImageGallery hits={hits} onOpenModal={this.onOpenModal} />
 
-        {hits.length > 0 && <Button onClick={this.fetchHits} />}
+        {hits.length > 0 && <Button onClick={this.onLoadMore} />}
       </>
     );
   }
