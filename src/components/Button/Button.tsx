@@ -1,6 +1,10 @@
 import styles from './styles.module.scss'
 
-const Button = ({onClick}) => {
+type ButtotType = {
+  onClick(event:React.MouseEvent<HTMLButtonElement>):void
+}
+
+const Button = ({onClick}:ButtotType) => {
    return(<div className={styles.container}><button className={styles.button}type="button" onClick={onClick}>
    Load more
   </button></div>)

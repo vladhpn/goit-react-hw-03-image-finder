@@ -1,16 +1,19 @@
 import {useState} from 'react';
 import styles from './styles.module.scss'
 
+type SearchBarType = {
+  onSubmit(searchQuery: string):void
+}
 
-const Searchbar = ({onSubmit}) =>{
+const Searchbar = ({onSubmit}:SearchBarType) =>{
 
   const [query, setQuery] = useState('')
 
-   const handleChange = event => {
+   const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         setQuery(event.target.value)
     }
 
-   const handleSubmit = event => {
+   const handleSubmit = (event:React.FormEvent<HTMLFormElement> ) => {
         event.preventDefault()
 
         onSubmit(query)

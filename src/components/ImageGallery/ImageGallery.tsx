@@ -1,10 +1,32 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem'
 import Button from '../Button'
 import styles from './styles.module.scss'
+import {IHits, IEvent} from '../../interfaces/interface'
 
 
+// interface IHits {
+//   id: string
+//   webformatURL:string
+//   largeImageURL: string
+//   tags: string
+// }
 
-const ImageGallery = ({ hits, onOpenModal, onLoadMore}) => {
+// interface IEvent{
+//   target: {
+//       dataset: {
+//           source: string;
+//       };
+//   };
+// }
+
+interface IImageGallary{
+  hits: IHits[]
+  clickImg(e:IEvent, showModal:boolean):void
+  onLoadMore(event: React.MouseEvent<HTMLButtonElement>):void
+  onOpenModal():void
+}
+
+const ImageGallery = ({ hits, clickImg, onLoadMore, onOpenModal}:IImageGallary) => {
     return( 
       <>
        <ul className={styles.ImageGallery}>
@@ -14,6 +36,7 @@ const ImageGallery = ({ hits, onOpenModal, onLoadMore}) => {
           webformatURL={webformatURL}
           largeImageURL={largeImageURL}
           tags={tags}
+          clickImg={clickImg}
           onOpenModal={onOpenModal}
         />
         ))}
