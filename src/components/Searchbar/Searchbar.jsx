@@ -1,36 +1,30 @@
-import {Component} from 'react';
+import {useState} from 'react';
 import styles from './styles.module.scss'
 
 
-class Searchbar extends Component{
+const Searchbar = ({onSubmit}) =>{
 
-    state = {
-        query: ''
+  const [query, setQuery] = useState('')
+
+   const handleChange = event => {
+        setQuery(event.target.value)
     }
 
-    handleChange = event => {
-        this.setState({
-            query: event.currentTarget.value
-        })
-    }
-
-    handleSubmit = event => {
+   const handleSubmit = event => {
         event.preventDefault()
 
-        this.props.onSubmit(this.state.query)
-        this.setState({query:''})
+        onSubmit(query)
+        setQuery('')
     }
 
-
-    render() {
         return <header className={styles.Searchbar}>
-        <form onSubmit={this.handleSubmit} className={styles.SearchForm}>
+        <form onSubmit={handleSubmit} className={styles.SearchForm}>
           <button type="submit" className={styles.SearchButton}>
           <span className={styles.SearchFormLabel}>Search</span>
           </button>
       
           <input
-          value ={this.state.query} onChange={this.handleChange}
+          value ={query} onChange={handleChange}
             className={styles.SearchFormInput}
             type="text"
             autoComplete="off"
@@ -41,6 +35,5 @@ class Searchbar extends Component{
       </header>
       
     }
-}
 
 export default Searchbar;

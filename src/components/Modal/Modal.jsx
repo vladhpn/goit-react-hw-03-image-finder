@@ -1,41 +1,32 @@
-import {Component} from 'react';
+/* eslint-disable no-self-compare */
+import {useEffect} from 'react';
 import {createPortal} from 'react-dom'
 import styles from './styles.module.scss'
 
 
 const modalRoot = document.getElementById("modal-root");
 
-class Modal extends Component {
+const Modal = ({onClose, largeImageURL, alt}) => {
 
-    componentDidMount(){
-        window.addEventListener('keydown', this.handleKeyDown)
-    }
-
-    componentWillUnmount(){
-        window.removeEventListener('keydown', this.handleKeyDown)
-    }
-
-    handleKeyDown = event => {
-        if(event.code === 'Escape'){
-            this.props.onClose();
+   const handleKeyDown = event => {
+        if(event.key === 'Escape'){
+            onClose();
         }
     }
 
-    handleOverlayClick = event => {
-        if(event.currentTarget === event.target){
-            this.props.onClose();
+    
+
+   const handleOverlayClick = event => {
+        if(event.target === event.target){
+            onClose();
         }
     }
 
-    render(){
-        // const { largeImageURL } = this.props;
-
-        return createPortal(<div className={styles.Overlay} onClick={this.handleOverlayClick}>
-            <div className={styles.Modal}> {this.props.children}
-              <img src={this.props.largeImageURL} alt={this.props.alt} />
+        return createPortal(<div className={styles.Overlay} onClick={handleOverlayClick} onKeyPress={handleKeyDown}>
+            <div className={styles.Modal}> 
+              <img src={largeImageURL} alt={alt} />
             </div>
           </div>, modalRoot) 
-    }
 }
 
 export default Modal;

@@ -1,11 +1,13 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem'
-import PropTypes from 'prop-types';
+import Button from '../Button'
 import styles from './styles.module.scss'
 
 
 
-const ImageGallery = ({ hits, onOpenModal}) => {
-    return(  <ul className={styles.ImageGallery}>
+const ImageGallery = ({ hits, onOpenModal, onLoadMore}) => {
+    return( 
+      <>
+       <ul className={styles.ImageGallery}>
         {hits.map(({ id, webformatURL, tags, largeImageURL }) => (
           <ImageGalleryItem
           key={id}
@@ -16,12 +18,10 @@ const ImageGallery = ({ hits, onOpenModal}) => {
         />
         ))}
       </ul>
+      {hits.length > 0 && <Button onClick={onLoadMore} />}
+      </>
 ) 
 }
 
-ImageGallery.propTypes = {
-  hits: PropTypes.array.isRequired,
-  onOpenModal: PropTypes.func.isRequired
-}
 
 export default ImageGallery;

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import styles from './styles.module.scss'
 
 export default function ImageGalleryItem({ webformatURL, largeImageURL, tags, onOpenModal }) {
@@ -13,10 +13,4 @@ export default function ImageGalleryItem({ webformatURL, largeImageURL, tags, on
         />
       </li>
     );
-  }
-
-  ImageGalleryItem.propTypes = {
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired
   }
